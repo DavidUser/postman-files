@@ -1,0 +1,7 @@
+{
+  "method": "POST",
+  "url": "https://postman-echo.com/post",
+  "header": {
+    "Content-Type": "application/javascript"
+  }
+}

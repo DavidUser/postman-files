@@ -1,0 +1,118 @@
+{
+	"info": {
+		"_postman_id": "9e448d04-23ba-4fd8-89b8-e94e23569519",
+		"name": "Sample",
+		"description": "Simple sample collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1d5a8e44-a59c-49f7-8e18-d59456b264e2",
+						"exec": [
+							"pm.test('Response OK', function() {",
+							"  pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"pm.test('Expected Args', function() {",
+							"  var first = pm.environment.get(\"first\");",
+							"  pm.expect(pm.response.json().args).to.deep.equal({\"first\": first});",
+							"})",
+							"",
+							"pm.test('Expected protocol', function() {",
+							"  var expected = pm.environment.get(\"protocol\");",
+							"  pm.expect(pm.response.json()[\"x-forwarded-proto\"], expected);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "29964563-dd1b-4093-8a41-6baea48f52e8",
+						"exec": [
+							"pm.environment.set(\"first\", \"\" + Math.random())",
+							"pm.environment.set(\"x-forwarded-proto\", \"https\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://postman-echo.com/get?first={{first}}",
+					"protocol": "https",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "first",
+							"value": "{{first}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Hello",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9c87f670-8dae-4332-82c1-6e13ee97a3fc",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/javascript",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"hello\": \"world\"\n}",
+					"options": {
+						"raw": {
+							"language": "javascript"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://postman-echo.com/post",
+					"protocol": "https",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
